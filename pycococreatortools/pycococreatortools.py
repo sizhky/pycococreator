@@ -45,7 +45,7 @@ def binary_mask_to_polygon(binary_mask, tolerance=0):
     # pad mask to close contours of shapes which start and end at an edge
     padded_binary_mask = np.pad(binary_mask, pad_width=1, mode='constant', constant_values=0)
     contours = measure.find_contours(padded_binary_mask, 0.5)
-    contours = [c for c in np.subtract(contour, 1)]
+    contours = [np.subtract(c, 1) for c in contours]
     for contour in contours:
         contour = close_contour(contour)
         contour = measure.approximate_polygon(contour, tolerance)
